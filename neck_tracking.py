@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import os
 import pandas as pd
 
-# === STEP 1: Setup paths and directories ===
+# === Setup paths and directories ===
 video_path = "Video/NeckDeformationClip.mp4"
 cap = cv2.VideoCapture(video_path)
 if not cap.isOpened():
@@ -21,7 +21,7 @@ plot_dir = os.path.join(output_root, "Plots")
 for folder in [output_root, screenshot_dir, heatmap_dir, overlay_dir, plot_dir]:
     os.makedirs(folder, exist_ok=True)
 
-# === STEP 2: Video & ROI Setup ===
+# === Video & ROI Setup ===
 ret, prev_frame = cap.read()
 prev_gray = cv2.cvtColor(prev_frame, cv2.COLOR_BGR2GRAY)
 
@@ -32,7 +32,7 @@ left_intensity = []
 right_intensity = []
 frame_indices = []
 
-# === STEP 3: Frame-by-frame processing ===
+# === Frame-by-frame processing ===
 while True:
     ret, frame = cap.read()
     if not ret:
@@ -89,7 +89,7 @@ while True:
 
 cap.release()
 
-# === STEP 4: Plot motion intensity over time ===
+# === Plot motion intensity over time ===
 plt.figure(figsize=(10, 5))
 plt.plot(left_intensity, label="Left Neck ROI", color='blue')
 plt.plot(right_intensity, label="Right Neck ROI", color='green')
@@ -104,7 +104,7 @@ plot_path = os.path.join(plot_dir, "left_right_intensity_plot.png")
 plt.savefig(plot_path)
 plt.show()
 
-# === STEP 5: Save motion intensity data to CSV ===
+# === Save motion intensity data to CSV ===
 csv_path = os.path.join(plot_dir, "motion_intensity_data.csv")
 motion_data = {
     "Frame_Index": frame_indices,
